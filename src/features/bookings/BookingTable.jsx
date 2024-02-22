@@ -1,9 +1,23 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import Empty from "../../ui/Empty";
+import { useBookings } from "./useBookings";
+import Spinner from "../../ui/Spinner";
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings, isLoading } = useBookings();
+  // const [searchParams] = useSearchParams();
+
+  // const filterValue = searchParams.get("status") || "all";
+
+  if (isLoading) return <Spinner />;
+  if (bookings.length === 0) return <Empty resourceName="bookings" />;
+
+  // let filteredBookings = bookings.filter((booking) => {
+  //   if (filterValue === "all") return true;
+  //   return booking.status === filterValue; // "all", "unconfirmed", "checked-in" etc.
+  // });
 
   return (
     <Menus>

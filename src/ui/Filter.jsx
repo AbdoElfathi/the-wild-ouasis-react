@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { useUrl } from "../hooks/useUrl";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
@@ -33,3 +34,24 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+function Filter({ filterField, options }) {
+  const [currentFilter, setUrl] = useUrl({ filterField, options });
+
+  return (
+    <StyledFilter>
+      {options.map((option) => (
+        <FilterButton
+          key={option.value}
+          onClick={() => setUrl(option.value)}
+          active={currentFilter === option.value ? 1 : 0}
+          disabled={currentFilter === option.value}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
+    </StyledFilter>
+  );
+}
+
+export default Filter;
