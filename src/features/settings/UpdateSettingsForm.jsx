@@ -20,7 +20,7 @@ function UpdateSettingsForm() {
 
   const handleUpdate = (e, field) => {
     const { value } = e.target;
-    if (!value || eval(value) === eval(field)) return;
+    if (!value || eval(value) === eval(field)) return null;
     updateSettings({ [field]: value });
   };
 

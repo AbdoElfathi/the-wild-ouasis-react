@@ -37,7 +37,7 @@ const FilterButton = styled.button`
 
 function Filter({ filterField, options }) {
   const [currentFilter, setUrl] = useUrl({ filterField, options });
-
+  console.log("hello");
   return (
     <StyledFilter>
       {options.map((option) => (
