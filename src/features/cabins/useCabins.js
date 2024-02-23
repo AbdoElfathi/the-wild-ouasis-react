@@ -11,5 +11,5 @@ export const useCabins = () => {
     queryFn: () => getCabins(),
   });
 
-  return { isLoading, cabins };
+  return { isLoading, error, cabins };
 };
