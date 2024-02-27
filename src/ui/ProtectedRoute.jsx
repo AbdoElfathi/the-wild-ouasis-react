@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useUserHook } from "../features/authentication/useUserHook";
+import { useUser } from "../features/authentication/useUser";
 import Spinner from "./Spinner";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const FullPage = styled.div`
   height: 100vh;
@@ -13,17 +14,21 @@ const FullPage = styled.div`
 
 function ProtectedRoute({ children }) {
   // 1 : load the autenticated user:
-  const { isLoading, user, isAuthenticated } = useUserHook();
+  const { isLoading, user, isAuthenticated } = useUser();
   const navigate = useNavigate();
-  // 2 : Show a spinner:
+
+  // 2 : If not authenticated, redirect to login
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) navigate("/login", { replace: true });
+  });
+  // 3 : Show a spinner:
   if (isLoading)
     return (
       <FullPage>
         <Spinner />
       </FullPage>
     );
-  // 3 : If not authenticated, redirect to login
-  if (!isAuthenticated) return navigate("/login");
+
   // 4 : If authenticated, render children
   return children;
 }
