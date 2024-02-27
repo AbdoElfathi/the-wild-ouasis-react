@@ -6,6 +6,7 @@ export function useUrl({ filterField, options }) {
 
   const setUrl = (value) => {
     searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.delete("page");
     setSearchParams(searchParams);
   };
 

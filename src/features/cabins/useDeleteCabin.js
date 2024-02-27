@@ -9,7 +9,7 @@ export const useDeleteCabin = () => {
     mutationFn: (id) => deleteCabinApi(id),
     onSuccess: () => {
       toast.success("Cabin succesffuly deleted");
-      queryClient.resetQueries(["cabins"]);
+      queryClient.invalidateQueries(["cabins"]);
     },
     onError: (err) => toast.error(err.message),
   });
