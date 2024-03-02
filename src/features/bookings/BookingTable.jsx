@@ -13,6 +13,7 @@ function BookingTable() {
   // const filterValue = searchParams.get("status") || "all";
 
   if (isLoading) return <Spinner />;
+
   if (bookings.length === 0) return <Empty resourceName="bookings" />;
 
   // let filteredBookings = bookings.filter((booking) => {
