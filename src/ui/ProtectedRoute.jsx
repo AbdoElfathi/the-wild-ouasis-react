@@ -13,14 +13,23 @@ const FullPage = styled.div`
 `;
 
 function ProtectedRoute({ children }) {
-  // 1 : load the autenticated user:
-  const { isLoading, user, isAuthenticated } = useUser();
   const navigate = useNavigate();
 
+  // 1 : load the autenticated user:
+  const { isLoading, isAuthenticated } = useUser();
+
   // 2 : If not authenticated, redirect to login
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading) navigate("/login", { replace: true });
-  });
+  useEffect(
+    function () {
+      console.log("isAuthenticated", isAuthenticated, "isLoading", isLoading);
+      if (!isAuthenticated && !isLoading) {
+        console.log("Protected route Redirect");
+
+        navigate("/login");
+      }
+    },
+    [isAuthenticated, isLoading, navigate]
+  );
   // 3 : Show a spinner:
   if (isLoading)
     return (
@@ -28,9 +37,8 @@ function ProtectedRoute({ children }) {
         <Spinner />
       </FullPage>
     );
-
   // 4 : If authenticated, render children
-  return children;
+  if (isAuthenticated) return children;
 }
 
 export default ProtectedRoute;
